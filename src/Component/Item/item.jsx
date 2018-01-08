@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { addCart } from '../../redux/action';
+import { connect } from 'react-redux';
 
 class List extends Component {
 
@@ -7,24 +10,34 @@ class List extends Component {
         this.state = {
             default: this.props.data.children[0]
         }
+
     }
 
-    chooseItem = (id) => {
+    chooseItem = (child) => {
 
-        this.props.data.children.map( item => {
-            if( item.id === id ) {
-                this.setState({
-                    default: item
-                })
-            }
-        } )
-    }
+        this.setState({
+            default: child
+        })
+
+    };
+
+
+    /*
+    * 添加商品到购物车
+    * */
+    joinCart = () => {
+        // console.log(this.state.default.id, this.state.default.pid)
+        let addItem = this.state.default;
+        this.props.dispatch( addCart( 1, addItem.id ) );
+        console.log(1)
+        // this.props.dispatch( addCart(1, addItem.id) );
+    };
 
     getColorList() {
         return (
             this.props.data.children.map( child => {
                 return (
-                    <li key={child.id} onMouseOver={ () => this.chooseItem(child.id)}>
+                    <li key={child.id} onMouseOver={ () => this.chooseItem(child) } >
                         <a href=" "  className={ child.id === this.state.default.id ? "active" : ''}>
                             <img src={child.color} alt="" /></a>
                     </li>
@@ -36,7 +49,7 @@ class List extends Component {
     render() {
         // console.log( this.props, 222 )
         let item = this.props.data;
-        console.log(item)
+        // console.log(item)
         return (
 
             <div className="item">
@@ -53,14 +66,17 @@ class List extends Component {
                         </ul>
                     </div>
                     <div  className="item-btns clearfix">
-                        <span  className="item-gray-btn"><a href=" " target="_blank">查看详情</a> </span><span  className="item-blue-btn">加入购物车 </span>
+                        <span  className="item-gray-btn">
+                            <Link to={"/detail/" + this.state.default.id}>查看详情</Link>
+                        </span>
+                        <span className="item-blue-btn" onClick={ this.joinCart } >加入购物车 </span>
                     </div>
                     <div  className="item-price clearfix">
                         <i>¥</i><span>{this.state.default.price}</span>
                     </div>
                     <div  className="discount-icon">false</div>
                     <div  className="item-cover">
-                        <a href=" " target="_blank"></a>
+                        <a href="" target="_blank"> </a>
                     </div>
                 </div>
             </div>
@@ -69,4 +85,4 @@ class List extends Component {
     }
 }
 
-export default List;
+export default connect()(List);

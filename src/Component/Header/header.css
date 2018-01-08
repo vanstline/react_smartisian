@@ -310,7 +310,7 @@
     z-index: 11;
 }
 
-.nav-cart.active .nav-cart-wrapper {
+.nav-cart:hover .nav-cart-wrapper {
     display: block;
     top: 18px;
     opacity: 1;

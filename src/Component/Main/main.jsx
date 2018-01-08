@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './goodsList.css';
 
-import Apis from '../../Api/apis';
+import { getItem } from '../../redux/action';
 import List from "../Item/item";
 
 // console.log(HOST);
@@ -19,7 +19,7 @@ class Main extends Component {
 
     componentDidMount() {
         if( !this.props.items.length ) {
-            this.props.dispatch( Apis.getItem());
+            this.props.dispatch( getItem() );
         }
     }
     render() {
@@ -45,26 +45,24 @@ class Main extends Component {
         // console.log( items )
 
         return (
-            <div id="main">
-                <div  className="sku-box store-content">
-                    <div  className="sort-option">
-                        <ul  className="line clear">
-                            <li><a href=" "  className="active">综合排序</a></li>
-                            <li><a href=" "  className="">销量排序</a></li>
-                            <li><a href=" "  className="">价格低到高</a></li>
-                            <li><a href=" "  className="">价格高到低</a></li>
-                        </ul>
+            <div  className="sku-box store-content">
+                <div  className="sort-option">
+                    <ul  className="line clear">
+                        <li><a href=" "  className="active">综合排序</a></li>
+                        <li><a href=" "  className="">销量排序</a></li>
+                        <li><a href=" "  className="">价格低到高</a></li>
+                        <li><a href=" "  className="">价格高到低</a></li>
+                    </ul>
+                </div>
+                <div  className="gray-box">
+                    <div  className="item-box">
+                        {
+                            items.map( item => {
+                                return <List key={item.id} data={ item } />
+                            })
+                        }
                     </div>
-                    <div  className="gray-box">
-                        <div  className="item-box">
-                            {
-                                items.map( item => {
-                                    return <List key={item.id} data={ item } />
-                                })
-                            }
-                        </div>
 
-                    </div>
                 </div>
             </div>
         )

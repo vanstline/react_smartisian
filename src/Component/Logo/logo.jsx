@@ -6,7 +6,7 @@ class Logo extends Component {
 
         return (
             <h1 className="nav-logo">
-                <a href=""></a>
+                <a href=""> </a>
             </h1>
         )
     }

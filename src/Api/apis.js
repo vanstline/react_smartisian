@@ -1,20 +1,12 @@
 
 const HOST = 'http://localhost:9999/';
-const ITEM = 'item';
 
-export default {
-    getItem(){
-        return dispatch  => {
-            fetch( HOST + ITEM ).then( res => {
-                     return res.json()
-                } ).then( ({data}) => {
-                    // console.log(data)
-                    dispatch( {
-                        type: 'UPDATE_ITEMS',
-                        data: data
-                    } )
-                } )
-        }
-    }
-}
+export const GET_ITEMS = HOST + 'item';
+export const GET_CARTS = HOST + 'cart';
+export const JOIN_CART = HOST + 'cart/add';
+
+
+
+
+
 
