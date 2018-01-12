@@ -22,10 +22,11 @@ class Main extends Component {
             this.props.dispatch( getItem() );
         }
     }
+
     render() {
         var items = this.props.items.filter( item => {
             return item.children;
-        } )
+        } );
 
         items = items.map( item => {
             /*

@@ -1,5 +1,5 @@
 
-import { GET_ITEMS, GET_CARTS, JOIN_CART } from '../Api/apis';
+import { GET_ITEMS, GET_CARTS, JOIN_CART, REMOVE_MOLD } from '../Api/apis';
 import axios from 'axios';
 
 
@@ -44,12 +44,42 @@ export const addCart = ( uid, itemId ) => {
     return dispatch => {
         axios( JOIN_CART, {
             method: 'POST',
-            data: `uid=${uid}&item_id${itemId}`
+            data: `uid=${uid}&item_id=${itemId}`
         } ).then( ({data}) => {
-            console.log(uid, itemId)
+            console.log(data);
             dispatch( getCarts(uid, itemId) );
 
         } )
     }
 
+    /*
+    * 为什么用 fetch 不行
+    * */
+    // return dispatch => {
+    //     fetch( JOIN_CART, {
+    //         method: 'POST',
+    //         data: `uid=${uid}&item_id=${itemId}`
+    //     } ).then( res => {
+    //         return res.json();
+    //     } ).then( data => {
+    //         console.log(data)
+    //         dispatch( getCarts(uid, itemId) );
+    //     } )
+    // }
+
+};
+
+/*
+* 删除购物车指定商品
+* */
+export const RemoveCartMold = ( uid, itemId ) => {
+    return dispatch => {
+        axios( REMOVE_MOLD, {
+            method: 'POST',
+            data: `uid=${uid}&item_id=${itemId}`
+        } ).then( ({data}) => {
+            // console.log(data);
+            dispatch( getCarts(uid, itemId) );
+        } )
+    }
 };

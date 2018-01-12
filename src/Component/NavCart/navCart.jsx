@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getCarts } from '../../redux/action';
+import { Link } from 'react-router-dom';
+import { getCarts, RemoveCartMold } from '../../redux/action';
 
 class NavCart extends Component {
 
@@ -10,6 +11,11 @@ class NavCart extends Component {
             this.props.dispatch( getCarts(1) );
         }
     }
+
+    RemoveCartClass = (item) => {
+        console.log( '删除' + item );
+        this.props.dispatch( RemoveCartMold( 1, item) )
+    };
 
     getCartPopup() {
         if( this.props.carts.length ) {
@@ -59,7 +65,7 @@ class NavCart extends Component {
                                                             </h6>
                                                         </div>
                                                     </div>
-                                                    <div className="del-btn">删除</div>
+                                                    <div className="del-btn" onClick={ () => this.RemoveCartClass(LI.item.id) }>删除</div>
                                                 </div>
                                             </div>
                                         </li>
@@ -77,7 +83,8 @@ class NavCart extends Component {
                             <span className="price-num ng-binding">{totalPrice}</span>
                         </h5>
                         <h6>
-                            <a className="nav-cart-btn" href="http://www.smartisan.com/shop/#/cart">去购物车</a>
+                            {/*<a className="nav-cart-btn" href="http://www.smartisan.com/shop/#/cart">去购物车</a>*/}
+                            <Link className="nav-cart-btn" to='/Cart'>去购物车</Link>
                         </h6>
                     </div>
                 </div>
@@ -100,7 +107,7 @@ class NavCart extends Component {
 
         return (
             <li className="nav-cart">
-                <a href="">购物车</a>
+                <Link to='/Cart'>购物车</Link>
                 <span className="cart-empty-num cart-num">
                     <i>{ carts.length }</i>
                 </span>

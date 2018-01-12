@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { addCart } from '../../redux/action';
 import { connect } from 'react-redux';
 
+
 class List extends Component {
 
     constructor(props) {
@@ -29,7 +30,7 @@ class List extends Component {
         // console.log(this.state.default.id, this.state.default.pid)
         let addItem = this.state.default;
         this.props.dispatch( addCart( 1, addItem.id ) );
-        console.log(1)
+        // console.log(1)
         // this.props.dispatch( addCart(1, addItem.id) );
     };
 
@@ -76,7 +77,7 @@ class List extends Component {
                     </div>
                     <div  className="discount-icon">false</div>
                     <div  className="item-cover">
-                        <a href="" target="_blank"> </a>
+                        <Link to={"/detail/" + this.state.default.id}></Link>
                     </div>
                 </div>
             </div>

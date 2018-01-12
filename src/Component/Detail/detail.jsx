@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getItem } from '../../redux/action';
+import { getItem, addCart } from '../../redux/action';
 import './detail.css';
 
 class Detail extends Component {
 
     constructor(props) {
-        super(props)
+        super(props);
 
         this.state = {
             n: 0
@@ -24,7 +24,7 @@ class Detail extends Component {
         this.setState({
             n: index
         })
-    }
+    };
 
     getSub = (baroItem, curItem) => {
         // console.log(curItem)
@@ -42,7 +42,12 @@ class Detail extends Component {
                 </li>
             )
         } )
-    }
+    };
+
+    JoinCart = () => {
+        // console.log( this.props.match.params.id,1);
+        this.props.dispatch( addCart( 1, this.props.match.params.id ) )
+    };
 
     render() {
         // console.log(this.props)
@@ -153,7 +158,8 @@ class Detail extends Component {
                         </div>
                         <div className="sku-status">
                             <div className="cart-operation-wrapper clearfix">
-                                <span className="blue-title-btn js-add-cart"><a>加入购物车</a></span>
+                                <span className="blue-title-btn js-add-cart"
+                                onClick={ this.JoinCart }><a>加入购物车</a></span>
                                 <span className="gray-title-btn"><a>现在购买</a></span>
                             </div>
                         </div>

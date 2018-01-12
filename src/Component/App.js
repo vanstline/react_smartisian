@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Header from "./Header/header";
 import Main from "./Main/main";
+import Cart from './ShopCart/shopCart';
 import Detail from './Detail/detail';
 
 import './reset.css';
@@ -23,6 +24,7 @@ class App extends Component {
 
                         <Route path="/" exact component={Main} />
                         <Route path="/detail/:id" exact component={Detail} />
+                        <Route path='/Cart' component={Cart} />
 
                     </div>
 
