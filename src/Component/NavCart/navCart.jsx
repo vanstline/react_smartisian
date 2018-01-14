@@ -13,7 +13,7 @@ class NavCart extends Component {
     }
 
     RemoveCartClass = (item) => {
-        console.log( '删除' + item );
+        // console.log( '删除' + item );
         this.props.dispatch( RemoveCartMold( 1, item) )
     };
 

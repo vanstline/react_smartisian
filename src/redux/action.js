@@ -1,5 +1,12 @@
 
-import { GET_ITEMS, GET_CARTS, JOIN_CART, REMOVE_MOLD } from '../Api/apis';
+import {
+    GET_ITEMS,
+    GET_CARTS,
+    JOIN_CART,
+    REMOVE_MOLD,
+    TOGGLE,
+    TOGGLE_ALL
+} from '../Api/apis';
 import axios from 'axios';
 
 
@@ -52,9 +59,9 @@ export const addCart = ( uid, itemId ) => {
         } )
     }
 
-    /*
-    * 为什么用 fetch 不行
-    * */
+    // /*
+    // * 为什么用 fetch 不行
+    // * */
     // return dispatch => {
     //     fetch( JOIN_CART, {
     //         method: 'POST',
@@ -80,6 +87,36 @@ export const RemoveCartMold = ( uid, itemId ) => {
         } ).then( ({data}) => {
             // console.log(data);
             dispatch( getCarts(uid, itemId) );
+        } )
+    }
+};
+
+/*
+* 购物车的单个选中
+* */
+export const Toggle = ( uid, cartId ) => {
+    return dispatch => {
+        axios( TOGGLE, {
+            method: 'POST',
+            data: `uid=${uid}&cart_id=${cartId}`
+        } ).then( ({data}) => {
+            console.log(data);
+            dispatch( getCarts(uid, cartId) );
+        } )
+    }
+};
+
+/*
+* 购物车的全选
+* */
+export const ToggleAll = ( uid, check ) => {
+    return dispatch => {
+        axios( TOGGLE_ALL, {
+            method: 'POST',
+            data: `uid=${uid}&checked=${check}`
+        } ).then( ({data}) => {
+            console.log(data);
+            dispatch( getCarts( uid, check) )
         } )
     }
 };

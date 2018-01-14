@@ -1,20 +1,85 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getCarts, RemoveCartMold, Toggle } from '../../redux/action';
 
 class CartList extends Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            n: 0
+        }
+    }
+
+    componentDidMount() {
+
+        this.getCheck()
+
+    }
+
+    RemoveCartClass = ( item ) => {
+        // console.log(item);
+        this.props.dispatch( RemoveCartMold( 1, item) );
+        // console.log('操作完毕')
+    };
+
+    getCheck() {
+        // let n = 0;
+
+        let n = this.props.carts.reduce( (prev, current) => {
+            return {
+                n: prev.n + (current.checked ? 1 : 0)
+            }
+        }, { n: 0 } );
+
+        console.log(n, 'test');
+        this.setState({
+            n
+        });
+
+        console.log(n, 'nnnnn')
+    }
+
+    Check  = (item) => {
+
+        this.props.dispatch( Toggle( 1, item.id ) )
+
+        console.log(item);
+
+        this.getCheck();
+
+        console.log(this.state.n, 'state-n')
+
+
+        // this.props.Checkout(this.state.n)
+
+    } ;
 
     render() {
-        console.log(this.props.data,1);
+
+
+        let { carts } = this.props;
+        // console.log(carts);
+
         return (
             <div>
                 {
-                    this.props.data.map( item => {
+                    carts.map( item => {
 
                         return (
+
                             <div key={ item.id } className="cart-top-items">
                                 <div className="cart-items">
                                     <div className="items-choose">
-                                        <span className="blue-checkbox-new checkbox-on"><a> </a></span>
+                                        {
+                                            // console.log(item.checked)
+                                        }
+                                        <span
+                                            className={ item.checked ? 'blue-checkbox-new checkbox-on' : 'blue-checkbox-new' }
+                                            onClick={ () => this.Check(item) }
+                                            ><a> </a>
+                                        </span>
                                     </div>
                                     <div className="items-thumb">
                                         <img src={item.item.cover}  alt="" />
@@ -24,24 +89,20 @@ class CartList extends Component {
                                         <div className="name-table">
                                             <a href="" >{item.item.title + ' - ' + item.item.name}</a>
                                             <ul className="attribute">
-                                                <li>透明</li>
+                                                <li>{item.item.sub_title}</li>
                                             </ul>
                                         </div>
                                     </div>
                                     <div className="operation">
-                                        <a className="items-delete-btn" > </a>
+                                        <a className="items-delete-btn" onClick={ () => this.RemoveCartClass(item.itemId)} > </a>
                                     </div>
                                     <div className="subtotal">¥ { item.item.price.toFixed(2)  * item.quantity }</div>
                                     <div className="item-cols-num">
                                         <div className="select js-select-quantity">
                                             <span className="down down-disabled">-</span>
                                             <span className="num">
-                                                    <input type="text" defaultValue={ item.quantity } style={{display: "inline-block"}} />
-                                                    <ul>
-                                                        <li>1</li>
-                                                        <li>2</li>
-                                                    </ul>
-                                                </span>
+                                                <input type="text" defaultValue={ item.quantity } style={{display: "inline-block"}} />
+                                            </span>
                                             <span className="up">+</span>
 
                                         </div>
@@ -59,4 +120,14 @@ class CartList extends Component {
     }
 }
 
-export default CartList;
+// export default connect( state => {
+//     return {
+//         Carts: state.Carts
+//     }
+// } )(CartList);
+
+export default connect( state => {
+    return {
+        carts: state.carts
+    }
+} )(CartList);

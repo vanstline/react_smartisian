@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getCarts } from '../../redux/action';
 import HaveGoods from './HaveGoods';
@@ -17,7 +18,7 @@ class ShopCart extends Component {
             return (
                 <div className="empty-label">
                     <h3>您的购物车中还没有商品</h3>
-                    <a className="link" href="">现在选购 </a>
+                    <Link className="link" to="/">现在选购 </Link>
                 </div>
             )
         }
