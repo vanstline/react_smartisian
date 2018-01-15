@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getCarts, RemoveCartMold, Toggle } from '../../redux/action';
+import { RemoveCartMold, Toggle } from '../../redux/action';
 
 class CartList extends Component {
 
@@ -25,7 +25,6 @@ class CartList extends Component {
     };
 
     getCheck() {
-        // let n = 0;
 
         let n = this.props.carts.reduce( (prev, current) => {
             return {
@@ -33,26 +32,17 @@ class CartList extends Component {
             }
         }, { n: 0 } );
 
-        console.log(n, 'test');
         this.setState({
             n
         });
 
-        console.log(n, 'nnnnn')
     }
 
     Check  = (item) => {
 
         this.props.dispatch( Toggle( 1, item.id ) )
 
-        console.log(item);
-
         this.getCheck();
-
-        console.log(this.state.n, 'state-n')
-
-
-        // this.props.Checkout(this.state.n)
 
     } ;
 
@@ -60,7 +50,6 @@ class CartList extends Component {
 
 
         let { carts } = this.props;
-        // console.log(carts);
 
         return (
             <div>

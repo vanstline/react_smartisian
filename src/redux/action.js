@@ -5,7 +5,9 @@ import {
     JOIN_CART,
     REMOVE_MOLD,
     TOGGLE,
-    TOGGLE_ALL
+    TOGGLE_ALL,
+    REMOVE_SELECTED,
+    ORDER
 } from '../Api/apis';
 import axios from 'axios';
 
@@ -52,8 +54,7 @@ export const addCart = ( uid, itemId ) => {
         axios( JOIN_CART, {
             method: 'POST',
             data: `uid=${uid}&item_id=${itemId}`
-        } ).then( ({data}) => {
-            console.log(data);
+        } ).then( () => {
             dispatch( getCarts(uid, itemId) );
 
         } )
@@ -73,6 +74,8 @@ export const addCart = ( uid, itemId ) => {
     //         dispatch( getCarts(uid, itemId) );
     //     } )
     // }
+
+    // 这里的 fetch 方法需要设置 相关头信息
 
 };
 
@@ -100,7 +103,7 @@ export const Toggle = ( uid, cartId ) => {
             method: 'POST',
             data: `uid=${uid}&cart_id=${cartId}`
         } ).then( ({data}) => {
-            console.log(data);
+            // console.log(data);
             dispatch( getCarts(uid, cartId) );
         } )
     }
@@ -114,9 +117,51 @@ export const ToggleAll = ( uid, check ) => {
         axios( TOGGLE_ALL, {
             method: 'POST',
             data: `uid=${uid}&checked=${check}`
-        } ).then( ({data}) => {
-            console.log(data);
-            dispatch( getCarts( uid, check) )
+        } ).then( () => {
+            // console.log(data);
+            dispatch( getCarts( uid ) )
         } )
     }
+};
+
+
+/*
+* 删除购物车中选中的商品
+* */
+export const RemoveSeleted = ( uid ) => {
+  return dispatch => {
+      axios( REMOVE_SELECTED, {
+          method: 'POST',
+          data: `uid=${uid}`
+      } ).then( () => {
+          dispatch( getCarts( uid ) )
+      } )
+  }
+};
+
+
+// /*
+// * 获取已经选中的商品
+// * */
+// export const getSelected = () => {
+//
+// };
+
+
+/*
+* 获取订单信息
+* */
+export const getOrder = (uid) => {
+  return dispatch => {
+      // axios( ORDER, {
+      //     method: 'GET',
+      //     data: `uid=${uid}`
+      // } ).then( (res) => {
+      //     console.log(res)
+      // } )
+
+      axios(ORDER + '?uid=1').then( res => {
+          console.log(res,330)
+      })
+  }
 };

@@ -4,6 +4,7 @@ import Header from "./Header/header";
 import Main from "./Main/main";
 import Cart from './ShopCart/shopCart';
 import Detail from './Detail/detail';
+import Order from  './Order/order';
 
 import './reset.css';
 
@@ -25,9 +26,9 @@ class App extends Component {
                         <Route path="/" exact component={Main} />
                         <Route path="/detail/:id" exact component={Detail} />
                         <Route path='/Cart' component={Cart} />
+                        <Route path='/Order' component={Order} />
 
                     </div>
-
                 </div>
             </BrowserRouter>
 
